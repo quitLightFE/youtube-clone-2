@@ -1,0 +1,182 @@
+{
+  "videos": [
+    {
+      "id": "v1",
+      "title": "React Hooks Tutorial",
+      "channelId": "c1",
+      "views": 124000,
+      "date": "2025-12-13",
+      "thumbnail": "https://i.ytimg.com/vi/Ke90Tje7VS0/hqdefault.jpg",
+      "videoUrl": "https://www.youtube.com/embed/Ke90Tje7VS0"
+    },
+    {
+      "id": "v2",
+      "title": "JavaScript Async Await Explained",
+      "channelId": "c2",
+      "views": 88000,
+      "date": "2025-12-09",
+      "thumbnail": "https://i.ytimg.com/vi/V_Kr9OSfDeU/hqdefault.jpg",
+      "videoUrl": "https://www.youtube.com/embed/V_Kr9OSfDeU"
+    },
+    {
+      "id": "v4",
+      "title": "Node.js Crash Course",
+      "channelId": "c3",
+      "views": 192000,
+      "date": "2025-12-12",
+      "thumbnail": "https://i.ytimg.com/vi/fBNz5xF-Kx4/hqdefault.jpg",
+      "videoUrl": "https://www.youtube.com/embed/fBNz5xF-Kx4"
+    },
+    {
+      "id": "v5",
+      "title": "CSS Grid in 20 Minutes",
+      "channelId": "c4",
+      "views": 67000,
+      "date": "2025-12-11",
+      "thumbnail": "https://i.ytimg.com/vi/jV8B24rSN5o/hqdefault.jpg",
+      "videoUrl": "https://www.youtube.com/embed/jV8B24rSN5o"
+    },
+    {
+      "id": "v7",
+      "title": "React Performance Optimization",
+      "channelId": "c5",
+      "views": 215000,
+      "date": "2025-12-14",
+      "thumbnail": "https://i.ytimg.com/vi/0ZJgIjIuY7U/hqdefault.jpg",
+      "videoUrl": "https://www.youtube.com/embed/0ZJgIjIuY7U"
+    },
+    {
+      "id": "v8",
+      "title": "Deep Dive into JavaScript Closures",
+      "channelId": "c6",
+      "views": 134500,
+      "date": "2025-12-08",
+      "thumbnail": "https://i.ytimg.com/vi/3a0I8ICR1Vg/hqdefault.jpg",
+      "videoUrl": "https://www.youtube.com/embed/3a0I8ICR1Vg"
+    },
+    {
+      "id": "v9",
+      "title": "MUI Layouts and Theming",
+      "channelId": "c7",
+      "views": 58200,
+      "date": "2025-12-09",
+      "thumbnail": "https://i.ytimg.com/vi/o1chMISeTC0/hqdefault.jpg",
+      "videoUrl": "https://www.youtube.com/embed/o1chMISeTC0"
+    },
+    {
+      "id": "v10",
+      "title": "CSS Flexbox vs Grid",
+      "channelId": "c8",
+      "views": 98000,
+      "date": "2025-11-25",
+      "thumbnail": "https://i.ytimg.com/vi/JJSoEo8JSnc/hqdefault.jpg",
+      "videoUrl": "https://www.youtube.com/embed/JJSoEo8JSnc"
+    },
+    {
+      "id": "v11",
+      "title": "Node.js Event Loop Explained",
+      "channelId": "c9",
+      "views": 176400,
+      "date": "2025-12-10",
+      "thumbnail": "https://i.ytimg.com/vi/PNa9OMajw9w/hqdefault.jpg",
+      "videoUrl": "https://www.youtube.com/embed/PNa9OMajw9w"
+    }
+  ],
+  "channels": [
+    {
+      "id": "c1",
+      "name": "CodeLab"
+    },
+    {
+      "id": "c2",
+      "name": "JS Pro"
+    },
+    {
+      "id": "c3",
+      "name": "Backend School"
+    },
+    {
+      "id": "c4",
+      "name": "DesignHub"
+    },
+    {
+      "id": "c5",
+      "name": "React Lab"
+    },
+    {
+      "id": "c6",
+      "name": "JS Core"
+    },
+    {
+      "id": "c7",
+      "name": "Material UI School"
+    },
+    {
+      "id": "c8",
+      "name": "CSS Mastery"
+    },
+    {
+      "id": "c9",
+      "name": "Backend Insights"
+    }
+  ],
+  "users": [
+    {
+      "id": "u1",
+      "name": "Guest User",
+      "avatar": "https://placehold.co/50x50"
+    }
+  ],
+  "likes": [
+    {
+      "id": "1",
+      "videoId": "v1",
+      "userId": "u1"
+    },
+    {
+      "id": "2",
+      "videoId": "v7",
+      "userId": "u1"
+    },
+    {
+      "id": "3",
+      "videoId": "v11",
+      "userId": "u1"
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": "1",
+      "channelId": "c1",
+      "userId": "u1"
+    },
+    {
+      "id": "2",
+      "channelId": "c5",
+      "userId": "u1"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "videoId": "v1",
+      "userId": "u1",
+      "text": "Xuklarni yaxshi chuntrdiz",
+      "createdAt": "2025-12-14T10:20:00Z"
+    },
+    {
+      "id": "2",
+      "videoId": "v7",
+      "userId": "u1",
+      "text": "Optimizatsiya uchun juda yaxshi video",
+      "createdAt": "2025-12-14T12:00:00Z"
+    },
+    {
+      "id": "3",
+      "videoId": "v2",
+      "userId": "u1",
+      "text": "Javascipt qiyin ekan",
+      "createdAt": "2025-12-19T12:00:00Z"
+    }
+  ]
+}
