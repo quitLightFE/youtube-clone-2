@@ -12,6 +12,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 import { drawerWidth } from "./MyDrawer";
 import { Add, DarkMode, Sunny } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -70,10 +71,12 @@ export default function Header({
         >
           <MenuIcon color="action" />
         </IconButton>
-        <YouTubeIcon sx={{ fill: "red", width: 30 }} />
+        <Box display={"flex"} to={"/"} component={Link} alignItems={"center"} sx={{textDecoration:"none"}}>
+          <YouTubeIcon sx={{ fill: "red", width: 30 }} />
         <Typography color="textPrimary" variant="h6" noWrap component="div">
           YouTube
         </Typography>
+        </Box>
         <StyledInput
           sx={{
             mr: 1,

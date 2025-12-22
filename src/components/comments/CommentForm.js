@@ -1,6 +1,5 @@
 import { Avatar, Box, Button, Input } from "@mui/material";
 import React, { useState } from "react";
-import { postComment } from "../../api/API";
 
 export default function CommentForm({ onSubmit }) {
   //
@@ -25,7 +24,7 @@ export default function CommentForm({ onSubmit }) {
           onChange={(e) => setText(e.target.value)}
         ></Input>
       </Box>
-      {text.trim().length != 0 && (
+      {text.trim().length !== 0 && (
         <Button onClick={handleComment}>Fikr bildirish</Button>
       )}
     </Box>

@@ -8,15 +8,12 @@ const GUEST_ID = "u1";
 
 export default function Comments({ videoId }) {
   const [comments, setComments] = useState([]);
-  const [iLoading, setIsLoadind] = useState(true);
 
   useEffect(() => {
     getCommentsByVideo(videoId).then((res) => {
-      // console.table(res.data);
       setComments(res.data);
-      setIsLoadind(false);
     });
-  }, [videoId]);
+  }, [comments, videoId]);
   //
   const handleAddComment = useCallback(
     async (text) => {
@@ -42,21 +39,12 @@ export default function Comments({ videoId }) {
         </Typography>
         <CommentForm onSubmit={handleAddComment} />
       </Box>
-      {
-        //commentlar
-      }
       <Box>
         <Box>
-          {/* {comments.map((comment) => {
-            console.log(comment);
-
-            return <CommentItem key={comment.createdAt} comment={comment} />;
-          })} */}
           {comments
-            .filter((comment) => comment && comment.createdAt)
             .map((comment) => (
               <CommentItem
-                key={comment.id ?? comment.createdAt}
+                key={comment.id}
                 comment={comment}
               />
             ))}
