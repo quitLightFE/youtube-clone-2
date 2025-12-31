@@ -20,6 +20,12 @@ export function TimeAgoDistance({ date }) {
   return <span>{formatted}</span>;
 }
 
+export const localizeAbbreviatedNumber = (num) =>
+  new Intl.NumberFormat("en-EN", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(num);
+
 function VideoCardSkeleton() {
   return (
     <Grid size={{ xs: 12, md: 6, lg: 4, xl: 3 }} p={0.5}>
@@ -69,18 +75,11 @@ export default function VideoContainer() {
   useEffect(() => {
     (async () => {
       const res = await getVideos();
-      console.log(res);
       if (!res.isError) setData(res.data);
       else setIsError(true);
       setIsLodaing(false);
     })();
   }, []);
-
-  const localizeAbbreviatedNumber = (num) =>
-    new Intl.NumberFormat("en-EN", {
-      notation: "compact",
-      maximumFractionDigits: 1,
-    }).format(num);
 
   return (
     <Box>
@@ -88,7 +87,7 @@ export default function VideoContainer() {
         {isLoading ? (
           <Grid container>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-              <VideoCardSkeleton />
+              <VideoCardSkeleton key={item * 40} />
             ))}
           </Grid>
         ) : isError ? (
@@ -100,7 +99,11 @@ export default function VideoContainer() {
         ) : (
           <Grid container>
             {data.map(({ id, thumbnail, title, author, views, date }) => (
-              <Grid key={id} size={{ xs: 12, md: 6, lg: 4, xl: 3 }} p={0.5}>
+              <Grid
+                key={id + title}
+                size={{ xs: 12, md: 6, lg: 4, xl: 3 }}
+                p={0.5}
+              >
                 <Card
                   component={Link}
                   to={`/watch/${id}`}

@@ -3,8 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import CommentForm from "./CommentForm";
 import { getCommentsByVideo, postComment } from "../../api/API";
 import CommentItem from "./CommentItem";
-
-const GUEST_ID = "u1";
+import { USER_ID } from "../../App";
 
 export default function Comments({ videoId }) {
   const [comments, setComments] = useState([]);
@@ -13,13 +12,13 @@ export default function Comments({ videoId }) {
     getCommentsByVideo(videoId).then((res) => {
       setComments(res.data);
     });
-  }, [comments, videoId]);
+  }, []);
   //
   const handleAddComment = useCallback(
     async (text) => {
       const newComment = {
         videoId,
-        userId: GUEST_ID,
+        userId: USER_ID,
         text,
         createdAt: new Date().toISOString(),
       };
@@ -41,13 +40,9 @@ export default function Comments({ videoId }) {
       </Box>
       <Box>
         <Box>
-          {comments
-            .map((comment) => (
-              <CommentItem
-                key={comment.id}
-                comment={comment}
-              />
-            ))}
+          {comments.map((comment) => (
+            <CommentItem key={comment.id} comment={comment} />
+          ))}
         </Box>
       </Box>
     </Box>

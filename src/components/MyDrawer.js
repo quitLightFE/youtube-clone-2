@@ -19,14 +19,16 @@ import ListItemText from "@mui/material/ListItemText";
 
 // import InboxIcon from "@mui/icons-material/MoveToInbox";
 // import MailIcon from "@mui/icons-material/Mail";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SlowMotionVideoRoundedIcon from "@mui/icons-material/SlowMotionVideoRounded";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
+import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import Header from "./Header";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 
 export const drawerWidth = 240;
 
@@ -85,14 +87,29 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const navigation = [
-  { text: "Asosoiy", icon: <HomeRoundedIcon />, path: "/videos" },
-  { text: "Shorts", icon: <SlowMotionVideoRoundedIcon />, path: "" },
-  { text: "Obunalar", icon: <SubscriptionsOutlinedIcon />, path: "" },
+  {
+    text: "Asosoiy",
+    icon: <HomeOutlinedIcon />,
+    activeIcon: <HomeRoundedIcon />,
+    path: "/videos",
+  },
+  {
+    text: "Shorts",
+    icon: <SlowMotionVideoRoundedIcon />,
+    path: "",
+  },
+  {
+    text: "Obunalar",
+    icon: <SubscriptionsOutlinedIcon />,
+    activeIcon: <SubscriptionsIcon />,
+    path: "/subscriptions",
+  },
   { text: "Siz", icon: <AccountCircleOutlinedIcon />, path: "" },
 ];
 
 export default function MyDrawer({ isLight, setIsLight }) {
   // const theme = useTheme();
+  const location = useLocation();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -128,7 +145,7 @@ export default function MyDrawer({ isLight, setIsLight }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {navigation.map(({ text, icon, path }, index) => (
+          {navigation.map(({ text, icon, activeIcon, path }, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={[
@@ -137,8 +154,8 @@ export default function MyDrawer({ isLight, setIsLight }) {
                     ? { justifyContent: "initial" }
                     : { justifyContent: "center" },
                 ]}
-                component={Link}
-                to={path ?? null}
+                component={NavLink}
+                to={path}
               >
                 <ListItemIcon
                   sx={[
@@ -146,7 +163,7 @@ export default function MyDrawer({ isLight, setIsLight }) {
                     open ? { mr: 3 } : { mr: "auto" },
                   ]}
                 >
-                  {icon}
+                  {location.pathname === path ? activeIcon : icon}
                 </ListItemIcon>
                 <ListItemText
                   primary={text}
@@ -179,14 +196,24 @@ export default function MyDrawer({ isLight, setIsLight }) {
             display: { xs: "flex", sm: "none" },
           }}
         >
-          <BottomNavigation showLabels sx={{ width: "100%" }}>
-            {navigation.map(({ text, icon, path }) => (
+          <BottomNavigation
+            showLabels
+            sx={{ width: "100%" }}
+            value={location.pathname}
+          >
+            {navigation.map(({ text, icon, activeIcon, path }) => (
               <BottomNavigationAction
-                key={text.toString(16)}
-                component={Link}
-                to={path ?? null}
+                key={path}
+                component={NavLink}
+                to={path}
+                value={path}
                 label={text}
-                icon={icon}
+                sx={{
+                  "&.active": {
+                    color: "text.secondary",
+                  },
+                }}
+                icon={location.pathname === path ? activeIcon : icon}
               />
             ))}
           </BottomNavigation>

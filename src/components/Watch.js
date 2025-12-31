@@ -1,14 +1,14 @@
-import { Avatar, Box, Button, Divider, Typography, Skeleton} from "@mui/material";
+import { Avatar, Box, Button, Typography, Skeleton } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { videosData } from "../data/Data";
+// import { videosData } from "../data/Data";
 
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined"; 
-import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import Comments from "./comments/Comments";
 import { getVideo } from "../api/API";
 import { useEffect, useState } from "react";
+import LikeBox from "./likes/LikeBox";
+import Subscription from "./Subscriptions/SubscriptionElement";
 
 const VideoSkeleton = () => {
   return (
@@ -89,17 +89,17 @@ const VideoSkeleton = () => {
 };
 
 export default function Watch() {
-  const [video, setVideo] = useState(null)
+  const [video, setVideo] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    getVideo(id).then(res => {
-      setVideo(res.data[0])
-      console.log(res.data[0])
-    })
-  }, [])
-  return (
-    video ? <Box p={0}>
+    getVideo(id).then((res) => {
+      setVideo(res?.data?.[0]);
+    });
+  }, []);
+
+  return video ? (
+    <Box p={0}>
       <iframe
         src={video.videoUrl}
         title={video.id}
@@ -122,35 +122,19 @@ export default function Watch() {
           gap={1}
           flex={{ xs: 1, md: 0 }}
         >
-          <Box display={"flex"} gap={1} alignItems={"center"}>
-            <Avatar />
-            <Box display={"flex"} flexDirection={"column"}>
-              <Typography variant="subtitle1">CodeLab</Typography>
-              <Typography variant="caption">7,8 ming obunachi</Typography>
-            </Box>
-            <Button variant="subscribe" sx={{ borderRadius: 20 }}>
-              Obuna
-            </Button>
-          </Box>
+          <Subscription channelId={video.channelId} />
         </Box>
 
         <Box display={"flex"} gap={1}>
-          <Box display={"flex"} borderRadius={20} overflow={"hidden"}>
-            <Button variant="badged" startIcon={<ThumbUpOutlinedIcon />}>
-              like
-            </Button>
-            <Divider variant="middle" orientation="vertical" flexItem />
-            <Button
-              variant="badged"
-              startIcon={<ThumbDownOutlinedIcon />}
-            ></Button>
-          </Box>
+          <LikeBox videoId={video?.id} />
           <Button
             sx={{ borderRadius: 20 }}
             variant="badged"
             startIcon={<ReplyOutlinedIcon />}
           >
-            <Typography variant="p" display={{ xs: "none", md: 'flex' }}>Ulashish</Typography>
+            <Typography variant="p" display={{ xs: "none", md: "flex" }}>
+              Ulashish
+            </Typography>
           </Button>
           <Button
             variant="badged"
@@ -161,6 +145,8 @@ export default function Watch() {
         </Box>
       </Box>
       <Comments videoId={video.id} />
-    </Box> : <VideoSkeleton />
+    </Box>
+  ) : (
+    <VideoSkeleton />
   );
 }

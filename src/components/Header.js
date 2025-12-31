@@ -50,7 +50,10 @@ export default function Header({
 }) {
   const theme = useTheme();
   const toggleIsLight = () => {
-    setIsLight((prev) => !prev);
+    setIsLight((prev) => {
+      localStorage.setItem("isLight", !prev);
+      return !prev;
+    });
   };
   return (
     <AppBar
@@ -71,11 +74,17 @@ export default function Header({
         >
           <MenuIcon color="action" />
         </IconButton>
-        <Box display={"flex"} to={"/"} component={Link} alignItems={"center"} sx={{textDecoration:"none"}}>
+        <Box
+          display={"flex"}
+          to={"/"}
+          component={Link}
+          alignItems={"center"}
+          sx={{ textDecoration: "none" }}
+        >
           <YouTubeIcon sx={{ fill: "red", width: 30 }} />
-        <Typography color="textPrimary" variant="h6" noWrap component="div">
-          YouTube
-        </Typography>
+          <Typography color="textPrimary" variant="h6" noWrap component="div">
+            YouTube
+          </Typography>
         </Box>
         <StyledInput
           sx={{

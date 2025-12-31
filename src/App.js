@@ -6,13 +6,20 @@ import { videosData } from "./data/Data";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Watch from "./components/Watch";
 import { getCommentsByVideo } from "./api/API";
+import SubsSection from "./components/Subscriptions/SubsSection";
 
-const getTheme = (mode) => {
+// npm install
+// npx json-server db.json
+// npm start
+
+export const USER_ID = "u1";
+
+const getTheme = (isLightTheme) => {
   const theme = createTheme({
     palette: {
-      mode: (mode && "light") || "dark",
+      mode: (isLightTheme && "light") || "dark",
       youtubeTheme: {
-        main: mode ? "#000000" : "#ffffff",
+        main: isLightTheme ? "#000000" : "#ffffff",
       },
     },
     components: {
@@ -22,7 +29,7 @@ const getTheme = (mode) => {
             props: {
               variant: "subscribe",
             },
-            style: mode
+            style: isLightTheme
               ? {
                   textTransform: "none",
                   backgroundColor: "#191830",
@@ -39,9 +46,35 @@ const getTheme = (mode) => {
           },
           {
             props: {
+              variant: "unsubscribe",
+            },
+            style: isLightTheme
+              ? {
+                  textTransform: "none",
+                  backgroundColor: "transparent",
+                  color: "#191830",
+                  borderWidth: "1px",
+                  borderColor: "#191830",
+                  borderStyle: "solid",
+                  "&:hover": {
+                    borderColor: "#272727",
+                    color: "#272727",
+                  },
+                }
+              : {
+                  textTransform: "none",
+                  backgroundColor: "transparent",
+                  color: "white",
+                  borderWidth: "1px",
+                  borderColor: "white",
+                  borderStyle: "solid",
+                },
+          },
+          {
+            props: {
               variant: "badged",
             },
-            style: mode
+            style: isLightTheme
               ? {
                   backgroundColor: "#f7f7f7",
                   "&:hover": {
@@ -66,7 +99,12 @@ const getTheme = (mode) => {
 
 function App() {
   getCommentsByVideo("v1");
-  const [isLight, setIsLight] = useState(true);
+  const [isLight, setIsLight] = useState(
+    localStorage.getItem("isLight") === null
+      ? true
+      : JSON.parse(localStorage.getItem("isLight"))
+  );
+
   return (
     <ThemeProvider theme={getTheme(isLight)}>
       <div className="App">
@@ -82,6 +120,7 @@ function App() {
                 element={<VideoContainer videos={videosData} />}
               />
               <Route path="watch/:id" element={<Watch />} />
+              <Route path="subscriptions" element={<SubsSection />} />
             </Route>
             <Route
               path="*"

@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000'
-})
+  baseURL: "http://localhost:3000",
+});
 
+//Videos Api
 export const getVideos = async () => {
   try {
     const res = await api.get("/videos");
@@ -13,12 +14,21 @@ export const getVideos = async () => {
   }
 };
 
+export const getVideo = async (id) => {
+  try {
+    const res = await api.get(`/videos?id=${id}`);
+    return { data: res.data, isError: false };
+  } catch (error) {
+    return { isError: true };
+  }
+};
+
+//Comments Api
 export const getCommentsByVideo = async (videoId) => {
   try {
     const res = await api.get(
       `/comments?videoId=${videoId}&sort=createdAt&_order=desc`
     );
-    // console.log(res.data);
     return { data: res.data, isError: false };
   } catch (error) {
     return { isError: true };
@@ -34,12 +44,27 @@ export const postComment = async (body) => {
   }
 };
 
-export const getVideo = async (id) => {
-  try {
-    const res = await api.get(`/videos?id=${id}`)
-    return { data: res.data, isError: false }
-  } catch (error) {
-    return { isError: true }
-  }
-}
-api.get("videos?id=v1").then(res => console.log(res.data[0]))
+// LIKES Api
+export const getLikesByVideo = (videoId) =>
+  api.get(`/likes?videoId=${videoId}`);
+export const likeVideo = (videoId, userId) =>
+  api.post("/likes", { videoId, userId });
+export const unLikeVideo = (id) => api.delete(`/likes/${id}`);
+
+export const getChannelName = (chId) => api.get(`/channels?id=${chId}`);
+
+export const getSubscriptionsByChannel = (channelId) =>
+  api.get(`/subscriptions?channelId=${channelId}`);
+export const getMySubscription = (channelId, userId) =>
+  api.get(`/subscriptions?userId=${userId}&channelId=${channelId}`);
+
+export const subscribe = (channelId, userId) =>
+  api.post("/subscriptions", { channelId, userId });
+export const unSubscribe = (id) => api.delete(`/subscriptions/${id}`);
+
+// Subscriptions Section
+export const getSubscribedChannels = (userId) =>
+  api.get(`/subscriptions?userId=${userId}`);
+
+export const getChannelsByIds = (ids) =>
+  Promise.all(ids.map((id) => api.get(`/channels/${id}`)));

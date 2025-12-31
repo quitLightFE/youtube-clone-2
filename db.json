@@ -123,8 +123,7 @@
   "users": [
     {
       "id": "u1",
-      "name": "Guest User",
-      "avatar": "https://placehold.co/50x50"
+      "name": "Guest User"
     }
   ],
   "likes": [
