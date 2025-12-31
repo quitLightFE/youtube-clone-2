@@ -12,6 +12,8 @@ import SubsSection from "./components/Subscriptions/SubsSection";
 // npx json-server db.json
 // npm start
 
+// 1 - vazifa ErrorBoundary.js qo'shildi
+
 export const USER_ID = "u1";
 
 const getTheme = (isLightTheme) => {

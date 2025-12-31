@@ -13,19 +13,19 @@ import Subscription from "./Subscriptions/SubscriptionElement";
 const VideoSkeleton = () => {
   return (
     <Box p={0}>
-      {/* Видео */}
+      {/* Video */}
       <Skeleton
         variant="rectangular"
         width="100%"
         sx={{ aspectRatio: 16 / 9, borderRadius: 2, height: "auto" }}
       />
 
-      {/* Заголовок */}
+      {/* Sarlavha */}
       <Typography mt={1}>
         <Skeleton width="80%" height={32} />
       </Typography>
 
-      {/* Инфо + кнопки */}
+      {/* Info + Knopkalar */}
       <Box
         display="flex"
         alignItems="center"
@@ -34,7 +34,7 @@ const VideoSkeleton = () => {
         flexWrap="wrap"
         mt={1}
       >
-        {/* Автор */}
+        {/* Avtor */}
         <Box display="flex" alignItems="center" gap={1}>
           <Skeleton variant="circular">
             <Avatar />
@@ -53,7 +53,7 @@ const VideoSkeleton = () => {
           />
         </Box>
 
-        {/* Кнопки */}
+        {/* Knopkalar */}
         <Box display="flex" gap={1}>
           <Skeleton
             variant="rectangular"

@@ -203,7 +203,7 @@ export default function MyDrawer({ isLight, setIsLight }) {
           >
             {navigation.map(({ text, icon, activeIcon, path }) => (
               <BottomNavigationAction
-                key={path}
+                key={`${text}-${text}`}
                 component={NavLink}
                 to={path}
                 value={path}
