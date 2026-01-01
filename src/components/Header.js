@@ -13,6 +13,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { drawerWidth } from "./MyDrawer";
 import { Add, DarkMode, Sunny } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { USER_ID } from "../App";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -136,7 +137,9 @@ export default function Header({
           <IconButton onClick={toggleIsLight}>
             {(isLight && <DarkMode />) || <Sunny />}
           </IconButton>
-          <Avatar sx={{ width: 30, height: 30 }} />
+          <Avatar sx={{ width: 30, height: 30 }}>
+            {USER_ID[0].toUpperCase()}
+          </Avatar>
         </Box>
       </Toolbar>
     </AppBar>

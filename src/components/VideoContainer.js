@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { getVideos } from "../api/API";
 
 import { formatDistanceToNow } from "date-fns";
+import { createPortal } from "react-dom";
 
 export function TimeAgoDistance({ date }) {
   const formatted = formatDistanceToNow(new Date(date), { addSuffix: true });
@@ -85,8 +86,8 @@ export default function VideoContainer() {
     })();
   }, []);
 
-  return (
-    <Box>
+  return createPortal(
+    <Box pb={[8, 1, 3]} ml={[0, "65px"]}>
       <Container sx={{ maxWidth: "3000px !important" }} fixed>
         {isLoading ? (
           <Grid container>
@@ -145,6 +146,7 @@ export default function VideoContainer() {
           </Grid>
         )}
       </Container>
-    </Box>
+    </Box>,
+    document.getElementById("videos")
   );
 }

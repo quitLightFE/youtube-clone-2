@@ -1,14 +1,10 @@
 import * as React from "react";
-import {
-  styled,
-  // useTheme
-} from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-// import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -17,8 +13,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-// import InboxIcon from "@mui/icons-material/MoveToInbox";
-// import MailIcon from "@mui/icons-material/Mail";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SlowMotionVideoRoundedIcon from "@mui/icons-material/SlowMotionVideoRounded";
@@ -28,7 +22,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 
 import Header from "./Header";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 export const drawerWidth = 240;
 
@@ -108,7 +102,6 @@ const navigation = [
 ];
 
 export default function MyDrawer({ isLight, setIsLight }) {
-  // const theme = useTheme();
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
 
@@ -180,10 +173,7 @@ export default function MyDrawer({ isLight, setIsLight }) {
           flexGrow: 1,
           px: [1, 1, 3],
           pt: [1, 1, 3],
-          pb: [8, 1, 3],
-          ml: [0, "65px", 0],
         }}
-        // pb={{ xs: "56px !important", sm: "0" }}
       >
         <DrawerHeader />
         {<Outlet />}
@@ -194,6 +184,7 @@ export default function MyDrawer({ isLight, setIsLight }) {
             left: 0,
             right: 0,
             display: { xs: "flex", sm: "none" },
+            zIndex: 100,
           }}
         >
           <BottomNavigation

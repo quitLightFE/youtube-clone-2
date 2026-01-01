@@ -13,10 +13,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 // npx json-server db.json
 // npm start
 
-// 2 - vazifa ErrorBoundary ishlatildi:
-// VideoContainer
-// Comments + postComment
-// Obunalar -> SubsSection
+// 3 - vazifa #Videos qoshildi
 
 export const USER_ID = "u1";
 
