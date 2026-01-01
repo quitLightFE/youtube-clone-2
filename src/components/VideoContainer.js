@@ -15,8 +15,6 @@ import { getVideos } from "../api/API";
 
 import { formatDistanceToNow } from "date-fns";
 import { createPortal } from "react-dom";
-import { Profiler } from "react";
-import { onRenderCallback } from "../App";
 
 export function TimeAgoDistance({ date }) {
   const formatted = formatDistanceToNow(new Date(date), { addSuffix: true });
@@ -89,72 +87,66 @@ export default function VideoContainer() {
   }, []);
 
   return createPortal(
-    <Profiler id="videosProfiler" onRender={onRenderCallback}>
-      <Box pb={[8, 1, 3]} ml={[0, "65px"]}>
-        <Container sx={{ maxWidth: "3000px !important" }} fixed>
-          {isLoading ? (
-            <Grid container>
-              {Array.from({ length: 10 }).map((_, index) => (
-                <VideoCardSkeleton key={(index + 1) * 40} />
-              ))}
-            </Grid>
-          ) : (
-            <Grid container>
-              {data.map(({ id, thumbnail, title, author, views, date }) => (
-                <Grid
-                  key={id + title}
-                  size={{ xs: 12, md: 6, lg: 4, xl: 3 }}
-                  p={0.5}
+    <Box pb={[8, 1, 3]} ml={[0, "65px"]}>
+      <Container sx={{ maxWidth: "3000px !important" }} fixed>
+        {isLoading ? (
+          <Grid container>
+            {Array.from({ length: 10 }).map((_, index) => (
+              <VideoCardSkeleton key={(index + 1) * 40} />
+            ))}
+          </Grid>
+        ) : (
+          <Grid container>
+            {data.map(({ id, thumbnail, title, author, views, date }) => (
+              <Grid
+                key={id + title}
+                size={{ xs: 12, md: 6, lg: 4, xl: 3 }}
+                p={0.5}
+              >
+                <Card
+                  component={Link}
+                  to={`/watch/${id}`}
+                  id={id}
+                  sx={{
+                    cursor: "pointer",
+                    p: 1,
+                    boxShadow: "none",
+                    transition: "0.6s",
+                    textDecoration: "none",
+                    display: "block",
+                    "&:hover": {
+                      bgcolor: theme.palette.divider,
+                    },
+                  }}
                 >
-                  <Card
-                    component={Link}
-                    to={`/watch/${id}`}
-                    id={id}
-                    sx={{
-                      cursor: "pointer",
-                      p: 1,
-                      boxShadow: "none",
-                      transition: "0.6s",
-                      textDecoration: "none",
-                      display: "block",
-                      "&:hover": {
-                        bgcolor: theme.palette.divider,
-                      },
-                    }}
-                  >
-                    <CardMedia
-                      image={thumbnail}
-                      sx={{
-                        aspectRatio: 16 / 9,
-                        width: "100%",
-                        borderRadius: 2,
-                      }}
-                    />
-                    <CardContent sx={{ display: "flex", gap: 1, px: 0 }}>
-                      <Avatar />
-                      <Box>
-                        <Typography variant="p">{title}</Typography>
-                        <Typography variant="body2">{author}</Typography>
-                        <Typography variant="caption">
-                          {localizeAbbreviatedNumber(views)} views
-                        </Typography>
-                        <Typography
-                          variant="caption"
-                          sx={{ "&::before": { content: '"•"', pr: 0.5 } }}
-                          px={1}
-                        >
-                          {<TimeAgoDistance date={date} />}
-                        </Typography>
-                      </Box>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          )}
-        </Container>
-      </Box>
-    </Profiler>,
+                  <CardMedia
+                    image={thumbnail}
+                    sx={{ aspectRatio: 16 / 9, width: "100%", borderRadius: 2 }}
+                  />
+                  <CardContent sx={{ display: "flex", gap: 1, px: 0 }}>
+                    <Avatar />
+                    <Box>
+                      <Typography variant="p">{title}</Typography>
+                      <Typography variant="body2">{author}</Typography>
+                      <Typography variant="caption">
+                        {localizeAbbreviatedNumber(views)} views
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        sx={{ "&::before": { content: '"•"', pr: 0.5 } }}
+                        px={1}
+                      >
+                        {<TimeAgoDistance date={date} />}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        )}
+      </Container>
+    </Box>,
     document.getElementById("videos")
   );
 }

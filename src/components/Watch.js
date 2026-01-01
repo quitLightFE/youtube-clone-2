@@ -6,11 +6,10 @@ import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import Comments from "./comments/Comments";
 import { getVideo } from "../api/API";
-import { Profiler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LikeBox from "./likes/LikeBox";
 import Subscription from "./Subscriptions/SubscriptionElement";
 import ErrorBoundary from "./ErrorBoundary";
-import { onRenderCallback } from "../App";
 
 const VideoSkeleton = () => {
   return (
@@ -101,57 +100,55 @@ export default function Watch() {
   }, []);
 
   return video ? (
-    <Profiler id="watchVideo" onRender={onRenderCallback}>
-      <Box p={0}>
-        <iframe
-          src={video.videoUrl}
-          title={video.id}
-          style={{ width: "100%", aspectRatio: 16 / 9, border: "none" }}
-        />
-        <Typography fontWeight={"bold"} variant="h6">
-          {video.title}
-        </Typography>
+    <Box p={0}>
+      <iframe
+        src={video.videoUrl}
+        title={video.id}
+        style={{ width: "100%", aspectRatio: 16 / 9, border: "none" }}
+      />
+      <Typography fontWeight={"bold"} variant="h6">
+        {video.title}
+      </Typography>
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"space-between"}
+        gap={1.5}
+        flexWrap={"wrap"}
+      >
         <Box
           display={"flex"}
           alignItems={"center"}
           justifyContent={"space-between"}
-          gap={1.5}
-          flexWrap={"wrap"}
+          gap={1}
+          flex={{ xs: 1, md: 0 }}
         >
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            gap={1}
-            flex={{ xs: 1, md: 0 }}
-          >
-            <Subscription channelId={video.channelId} />
-          </Box>
-
-          <Box display={"flex"} gap={1}>
-            <LikeBox videoId={video?.id} />
-            <Button
-              sx={{ borderRadius: 20 }}
-              variant="badged"
-              startIcon={<ReplyOutlinedIcon />}
-            >
-              <Typography variant="p" display={{ xs: "none", md: "flex" }}>
-                Ulashish
-              </Typography>
-            </Button>
-            <Button
-              variant="badged"
-              sx={{ borderRadius: "50%", minWidth: 0, p: 1 }}
-            >
-              <MoreHorizOutlinedIcon />
-            </Button>
-          </Box>
+          <Subscription channelId={video.channelId} />
         </Box>
-        <ErrorBoundary>
-          <Comments videoId={video.id} />
-        </ErrorBoundary>
+
+        <Box display={"flex"} gap={1}>
+          <LikeBox videoId={video?.id} />
+          <Button
+            sx={{ borderRadius: 20 }}
+            variant="badged"
+            startIcon={<ReplyOutlinedIcon />}
+          >
+            <Typography variant="p" display={{ xs: "none", md: "flex" }}>
+              Ulashish
+            </Typography>
+          </Button>
+          <Button
+            variant="badged"
+            sx={{ borderRadius: "50%", minWidth: 0, p: 1 }}
+          >
+            <MoreHorizOutlinedIcon />
+          </Button>
+        </Box>
       </Box>
-    </Profiler>
+      <ErrorBoundary>
+        <Comments videoId={video.id} />
+      </ErrorBoundary>
+    </Box>
   ) : (
     <VideoSkeleton />
   );
