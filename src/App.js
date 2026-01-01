@@ -13,9 +13,28 @@ import ErrorBoundary from "./components/ErrorBoundary";
 // npx json-server db.json
 // npm start
 
-// 3 - vazifa #Videos qoshildi
+// 4 - vazifa profiler console.logda chiqarish
+// VideoContainer va Watch da
 
 export const USER_ID = "u1";
+
+export function onRenderCallback(
+  id,
+  phase,
+  actualDuration,
+  baseDuration,
+  startTime,
+  commitTime
+) {
+  console.table({
+    id,
+    phase,
+    actualDuration,
+    baseDuration,
+    startTime,
+    commitTime,
+  });
+}
 
 const getTheme = (isLightTheme) => {
   const theme = createTheme({
