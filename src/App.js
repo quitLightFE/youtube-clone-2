@@ -7,12 +7,16 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Watch from "./components/Watch";
 import { getCommentsByVideo } from "./api/API";
 import SubsSection from "./components/Subscriptions/SubsSection";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 // npm install
 // npx json-server db.json
 // npm start
 
-// 1 - vazifa ErrorBoundary.js qo'shildi
+// 2 - vazifa ErrorBoundary ishlatildi:
+// VideoContainer
+// Comments + postComment
+// Obunalar -> SubsSection
 
 export const USER_ID = "u1";
 
@@ -116,13 +120,31 @@ function App() {
               path="/"
               element={<MyDrawer isLight={isLight} setIsLight={setIsLight} />}
             >
-              <Route index element={<VideoContainer videos={videosData} />} />
+              <Route
+                index
+                element={
+                  <ErrorBoundary>
+                    <VideoContainer videos={videosData} />
+                  </ErrorBoundary>
+                }
+              />
               <Route
                 path="videos"
-                element={<VideoContainer videos={videosData} />}
+                element={
+                  <ErrorBoundary>
+                    <VideoContainer videos={videosData} />
+                  </ErrorBoundary>
+                }
               />
               <Route path="watch/:id" element={<Watch />} />
-              <Route path="subscriptions" element={<SubsSection />} />
+              <Route
+                path="subscriptions"
+                element={
+                  <ErrorBoundary>
+                    <SubsSection />
+                  </ErrorBoundary>
+                }
+              />
             </Route>
             <Route
               path="*"

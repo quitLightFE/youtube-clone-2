@@ -8,9 +8,9 @@ const api = axios.create({
 export const getVideos = async () => {
   try {
     const res = await api.get("/videos");
-    return { data: res.data, isError: false };
+    return { data: res.data, isError: null };
   } catch (error) {
-    return { isError: true };
+    return { isError: error.message };
   }
 };
 

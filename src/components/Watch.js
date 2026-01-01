@@ -9,6 +9,7 @@ import { getVideo } from "../api/API";
 import { useEffect, useState } from "react";
 import LikeBox from "./likes/LikeBox";
 import Subscription from "./Subscriptions/SubscriptionElement";
+import ErrorBoundary from "./ErrorBoundary";
 
 const VideoSkeleton = () => {
   return (
@@ -144,7 +145,9 @@ export default function Watch() {
           </Button>
         </Box>
       </Box>
-      <Comments videoId={video.id} />
+      <ErrorBoundary>
+        <Comments videoId={video.id} />
+      </ErrorBoundary>
     </Box>
   ) : (
     <VideoSkeleton />

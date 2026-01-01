@@ -69,14 +69,18 @@ function VideoCardSkeleton() {
 export default function VideoContainer() {
   const theme = useTheme();
   const [data, setData] = useState([]);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(null);
   const [isLoading, setIsLodaing] = useState(true);
 
   useEffect(() => {
     (async () => {
       const res = await getVideos();
-      if (!res.isError) setData(res.data);
-      else setIsError(true);
+      if (res.isError) {
+        setIsError(() => {
+          throw res.isError;
+        });
+      }
+      setData(res.data);
       setIsLodaing(false);
     })();
   }, []);
@@ -86,16 +90,10 @@ export default function VideoContainer() {
       <Container sx={{ maxWidth: "3000px !important" }} fixed>
         {isLoading ? (
           <Grid container>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-              <VideoCardSkeleton key={item * 40} />
+            {Array.from({ length: 10 }).map((_, index) => (
+              <VideoCardSkeleton key={(index + 1) * 40} />
             ))}
           </Grid>
-        ) : isError ? (
-          <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
-            <Typography variant="h1" color="error">
-              Error
-            </Typography>
-          </Box>
         ) : (
           <Grid container>
             {data.map(({ id, thumbnail, title, author, views, date }) => (

@@ -2,8 +2,8 @@ import { Box, Skeleton, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import CommentForm from "./CommentForm";
 import { getCommentsByVideo, postComment } from "../../api/API";
-import CommentItem from "./CommentItem";
 import { USER_ID } from "../../App";
+import CommentsContainer from "./CommentsContainer";
 
 const CommentsSkeleton = () => {
   return (
@@ -24,8 +24,13 @@ const CommentsSkeleton = () => {
       </Box>
       <Box>
         <Box>
-          {Array.from({ length: 3 }).map((item) => (
-            <Box display="flex" gap={1} alignItems={"center"}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <Box
+              key={(index + 1) * 41}
+              display="flex"
+              gap={1}
+              alignItems={"center"}
+            >
               <Skeleton
                 variant="circular"
                 width={40}
@@ -48,12 +53,13 @@ const CommentsSkeleton = () => {
 export default function Comments({ videoId }) {
   const [comments, setComments] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getCommentsByVideo(videoId).then((res) => {
       setComments(res.data);
       setLoading(false);
-    });
+    }).catch(err => setError(() => {throw err}));
   }, []);
   //
   const handleAddComment = useCallback(
@@ -64,7 +70,11 @@ export default function Comments({ videoId }) {
         text,
         createdAt: new Date().toISOString(),
       };
-      const res = await postComment(newComment);
+      const res = await postComment(newComment).catch((err) =>
+        setError(() => {
+          throw err;
+        })
+      );
       setComments((prev) => [res.data, ...prev]);
     },
 
@@ -82,11 +92,7 @@ export default function Comments({ videoId }) {
           <CommentForm onSubmit={handleAddComment} />
         </Box>
         <Box>
-          <Box>
-            {comments.map((comment) => (
-              <CommentItem key={comment.id} comment={comment} />
-            ))}
-          </Box>
+          <CommentsContainer comments={comments} />
         </Box>
       </Box>
     )) || <CommentsSkeleton />

@@ -5,19 +5,24 @@ import { getChannelsByIds, getSubscribedChannels } from "../../api/API";
 
 export default function SubsSection() {
   const [subscribedChannels, setSubscribedChannels] = useState([]);
+  const [error, setError] = useState(null);
   useEffect(() => {
     (async () => {
-      const subsRes = await getSubscribedChannels(USER_ID);
+      try {
+        const subsRes = await getSubscribedChannels(USER_ID);
 
-      const channelIds = subsRes.data.map((s) => s.channelId);
+        const channelIds = subsRes.data.map((s) => s.channelId);
 
-      if (!channelIds.length) {
-        setSubscribedChannels([]);
-        return;
+        if (!channelIds.length) {
+          setSubscribedChannels([]);
+          return;
+        }
+
+        const chanelsRes = await getChannelsByIds(channelIds);
+        setSubscribedChannels(chanelsRes.map((r) => r.data));
+      } catch (err) {
+        setError(()=> {throw err})
       }
-
-      const chanelsRes = await getChannelsByIds(channelIds);
-      setSubscribedChannels(chanelsRes.map((r) => r.data));
     })();
   }, []);
 
