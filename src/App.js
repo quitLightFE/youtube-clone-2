@@ -9,12 +9,17 @@ import { getCommentsByVideo } from "./api/API";
 import SubsSection from "./components/Subscriptions/SubsSection";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-// npm install
-// npx json-server db.json
-// npm start
+/* 
+npm install
+npx json-server db.json
+npm start
+*/
 
-// 4 - vazifa profiler console.logda chiqarish
-// VideoContainer va Watch da
+/*
+    4 - vazifa snapshotlar va testlar qoshildi
+  Header
+  VideoCard
+*/
 
 export const USER_ID = "u1";
 
@@ -129,7 +134,7 @@ function App() {
 
   return (
     <ThemeProvider theme={getTheme(isLight)}>
-      <div className="App">
+      <div className="App" data-testid={"App-test"}>
         <BrowserRouter>
           <Routes>
             <Route

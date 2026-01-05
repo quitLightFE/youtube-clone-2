@@ -64,6 +64,7 @@ export default function Header({
     >
       <Toolbar>
         <IconButton
+          data-testid="drawer-toggle"
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerOpen}
@@ -134,7 +135,7 @@ export default function Header({
           <IconButton sx={{ p: 0.5, display: { sm: "flex", xs: "none" } }}>
             <NotificationsNoneOutlinedIcon />
           </IconButton>
-          <IconButton onClick={toggleIsLight}>
+          <IconButton data-testid="toggle-theme" onClick={toggleIsLight}>
             {(isLight && <DarkMode />) || <Sunny />}
           </IconButton>
           <Avatar sx={{ width: 30, height: 30 }}>

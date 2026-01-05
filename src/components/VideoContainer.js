@@ -2,12 +2,9 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
 
 import { Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -17,6 +14,7 @@ import { formatDistanceToNow } from "date-fns";
 import { createPortal } from "react-dom";
 import { Profiler } from "react";
 import { onRenderCallback } from "../App";
+import VideoCard from "./VideoCard";
 
 export function TimeAgoDistance({ date }) {
   const formatted = formatDistanceToNow(new Date(date), { addSuffix: true });
@@ -106,48 +104,9 @@ export default function VideoContainer() {
                   size={{ xs: 12, md: 6, lg: 4, xl: 3 }}
                   p={0.5}
                 >
-                  <Card
-                    component={Link}
-                    to={`/watch/${id}`}
-                    id={id}
-                    sx={{
-                      cursor: "pointer",
-                      p: 1,
-                      boxShadow: "none",
-                      transition: "0.6s",
-                      textDecoration: "none",
-                      display: "block",
-                      "&:hover": {
-                        bgcolor: theme.palette.divider,
-                      },
-                    }}
-                  >
-                    <CardMedia
-                      image={thumbnail}
-                      sx={{
-                        aspectRatio: 16 / 9,
-                        width: "100%",
-                        borderRadius: 2,
-                      }}
-                    />
-                    <CardContent sx={{ display: "flex", gap: 1, px: 0 }}>
-                      <Avatar />
-                      <Box>
-                        <Typography variant="p">{title}</Typography>
-                        <Typography variant="body2">{author}</Typography>
-                        <Typography variant="caption">
-                          {localizeAbbreviatedNumber(views)} views
-                        </Typography>
-                        <Typography
-                          variant="caption"
-                          sx={{ "&::before": { content: '"•"', pr: 0.5 } }}
-                          px={1}
-                        >
-                          {<TimeAgoDistance date={date} />}
-                        </Typography>
-                      </Box>
-                    </CardContent>
-                  </Card>
+                  <VideoCard
+                    data={{ id, thumbnail, title, author, views, date }}
+                  />
                 </Grid>
               ))}
             </Grid>
